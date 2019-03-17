@@ -1,0 +1,113 @@
+<div class="container containerTopMargin">
+  <form method="GET" [formGroup]="viewTaskForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="row col-md-6" style="margin-left: 15px;">
+        <label class="col-md-2 form-control" style="border: 0px;">Project :
+        </label>
+
+
+        <input class="col-md-5 form-control" formControlName="projectName" type="text" readonly id="mgr" data-toggle="modal"
+          data-target="#projectModal">
+        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal"
+          data-target="#projectModal">
+          Search </button>
+      </div>
+      <div class="row col-md-6">
+        <label class=" col-md-2 form-control" style="border: 0px;">Sort :
+        </label>
+        <button type="button" class=" col-md-2 btn btn-light" (click)="sortTaskByDate('startDate')"> StartDate
+        </button>
+        <button type="button" class="col-md-2 btn btn-light" (click)="sortTaskByDate('endDate')"> EndDate </button>
+        <button type="button" class=" col-md-2 btn btn-light" (click)="sortTaskByPriority('priority')"> Priority</button>
+        <button type="button" class="col-md-2 btn btn-light"> Completed</button>
+
+      </div>
+
+
+    </div>
+  </form>
+  <hr style="border: 0.5px dotted grey">
+
+  <div *ngFor="let task of allTaskperProject | filter:searchProjectText">
+    <div class="row">
+      <div class="col-md-2">
+        <b>Task:</b>
+        <br>
+        <p>
+          {{ task.taskName }}
+        </p>
+      </div>
+
+      <div class="col-md-2">
+        <b>Parent:</b>
+        <br>
+        <p *ngIf="!task.parentTask">
+          {{ task.parentTaskId.taskName }}
+        </p>
+        <p *ngIf="task.parentTask">
+          This Task has no Parent Task
+        </p>
+      </div>
+
+      <div class="col-md-1">
+        <b>Priority:</b>
+        <br>
+        <p>
+          {{ task.priority }}
+        </p>
+      </div>
+
+      <div class="col-md-2">
+        <b>Start:</b>
+        <br>
+        <p>
+          {{ task.startDate }}
+        </p>
+      </div>
+
+      <div class="col-md-2">
+        <b>End:</b>
+        <br>
+        <p>
+          {{ task.endDate }}
+        </p>
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn btn-secondary" (click)="editTask(task)" [routerLink]="['../addTask/']"> Edit </button>
+        <!-- <a class="btn btn-primary" [routerLink]="['../addTask/']" [queryParams]="task">Edit</a> -->
+        <button class="btn btn-secondary" (click)="suspendTask(task)"> End Task </button>
+      </div>
+    </div>
+
+    <hr style="border: 0.5px dotted grey">
+  </div>
+
+</div>
+
+<!-- Project Modal -->
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="projectModalLabel">Click to select Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text"
+          placeholder="Search..." />
+        <div *ngFor="let project of allProjects | filter:searchText">
+          <div id="selectMgr" (click)="selectProject(project._id, project.projectName)" data-dismiss="modal">{{project.projectName}}
+            <br></div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

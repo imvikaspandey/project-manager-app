@@ -1,0 +1,185 @@
+<div class="container containerTopMargin">
+  <form method="GET" [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-md-3" align="right" style="margin-left: 15px;">
+        <label class="form-control" style="border: 0px;">Project :
+        </label>
+      </div>
+      <div class="row col-md-9">
+        <input class="col-md-6 form-control" formControlName="projectName" type="text" readonly id="mgr" data-toggle="modal"
+          data-target="#projectModal">
+        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal"
+          data-target="#projectModal">
+          Search </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" align="right">
+        <label class="form-control" for="tskName" style="border: 0px;">Task : </label>
+      </div>
+      <div class="col-md-9">
+        <input type="text" id="tskName" class="form-control" formControlName="taskName">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" align="right">
+      </div>
+      <div class="row col-md-9">
+        <input type="checkbox" value="" name="isParentTask" id="isParent" formControlName="parentTask" (change)="setAsParentTask()">
+        &nbsp;
+        &nbsp;Parent Task
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+      <div class="col-md-3" align="right">
+
+        <label class="form-control" style="border: 0px;">Priority: </label>
+      </div>
+      <div class="col-md-9">
+        <input type="range" formControlName="priority" min="0" max="30" value="0" class="slider" id="myRange">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" align="right" style="margin-left: 15px;">
+        <label class="form-control" style="border: 0px;">Parent Task :
+        </label>
+      </div>
+      <div class="row col-md-9">
+        <input class="col-md-6 form-control" formControlName="parentTaskName" type="text" readonly id="mgr" data-toggle="modal"
+          data-target="#taskModal">
+        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal"
+          data-target="#taskModal" [disabled]="isParentTask">
+          Search </button>
+      </div>
+    </div>
+
+    <div class="
+          row">
+      <div class="col-md-3" align="right">
+        <label class="form-control" style="border: 0px;">Start Date: </label>
+      </div>
+      <div class="row col-md-9">
+        <div class="col-md-5">
+          <input class="form-control" formControlName="startDate" type="date" id="stDate">
+        </div>
+        <div class="col-md-7 row">
+          <div class="col-md-4">
+            <label class="form-control" style="border: 0px;">End Date:</label>
+          </div>
+          <div class="col-md-8">
+            <input class="form-control" formControlName="endDate" type="date" id="enDate">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" align="right" style="margin-left: 15px;">
+        <label class="form-control" style="border: 0px;">User :
+        </label>
+      </div>
+      <div class="row col-md-9">
+        <input class="col-md-6 form-control" formControlName="user" type="text" readonly id="mgr" data-toggle="modal"
+          data-target="#exampleModal">
+        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal"
+          data-target="#exampleModal" [disabled]="isParentTask">
+          Search </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-4" align="right">
+        <button type="submit" class="btn btn-primary" style="margin-right: 10px" [disabled]="!addTaskForm.valid">
+          {{editing? 'Update':'Add'}} </button>
+        <button type="reset" class="btn btn-secondary" (click)='resetForm()'> Reset </button>
+      </div>
+    </div>
+  </form>
+
+</div>
+<!-- Project Modal -->
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="projectModalLabel">Click to select Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text"
+          placeholder="Search..." />
+        <div *ngFor="let project of allProjects | filter:searchText">
+          <div id="selectMgr" *ngIf="!project.completed" (click)="selectProject(project._id, project.projectName)"
+            data-dismiss="modal">{{project.projectName}} <br></div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Parent task Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="taskModalLabel">Click to select Parent Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text"
+          placeholder="Search..." />
+        <div *ngFor="let parentTask of allParentTask | filter:searchText">
+          <div id="selectParentTask" (click)="selectParentTask(parentTask._id, parentTask.taskName)" data-dismiss="modal">{{parentTask.taskName}}</div>
+          <br>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Click to select Manager</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text"
+          placeholder="Search..." />
+        <div *ngFor="let user of allUsers | filter:searchText">
+          <div id="selectMgr" (click)="selectUser(user._id, user.firstName, user.lastName)" data-dismiss="modal">{{user.firstName}}
+            {{user.lastName}}</div>
+          <br>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,7 +13,7 @@
       <div class="col-md-3" align="right">
 
         <label class="form-control" style="border: 0px;">Set Start Date and End Date:
-          <input type="checkbox" value="Bike" name="dateActive" id="isDate" (change)="setActiveDate()"> </label>
+          <input type="checkbox" value="" name="dateActive" id="isDate" (change)="setActiveDate()"> </label>
       </div>
       <div class="row col-md-9">
         <div class="col-md-6">
@@ -42,8 +42,10 @@
         </label>
       </div>
       <div class="row col-md-9">
-        <input class="col-md-6 form-control" formControlName="manager" type="text" readonly id="mgr" data-toggle="modal" data-target="#exampleModal">
-        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+        <input class="col-md-6 form-control" formControlName="manager" type="text" readonly id="mgr" data-toggle="modal"
+          data-target="#exampleModal">
+        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal"
+          data-target="#exampleModal">
           Search </button>
       </div>
     </div>
@@ -52,7 +54,8 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-4" align="right">
-        <button type="submit" class="btn btn-primary" style="margin-right: 10px" [disabled]="!addProjectForm.valid"> {{editing? 'Update':'Add'}} </button>
+        <button type="submit" class="btn btn-primary" style="margin-right: 10px" [disabled]="!addProjectForm.valid">
+          {{editing? 'Update':'Add'}} </button>
         <button type="reset" class="btn btn-secondary" (click)='resetForm()'> Reset </button>
       </div>
     </div>
@@ -90,7 +93,8 @@
       <div class="col-md-3">
         <button class="btn btn-primary" (click)="editForm(project)" [disabled]="project.completed"> Update </button>
         <br>
-        <button class="btn btn-secondary" (click)="suspendProject(project)" [disabled]="project.completed"> Suspend </button>
+        <button class="btn btn-secondary" (click)="suspendProject(project)" [disabled]="project.completed"> Suspend
+        </button>
       </div>
       <div *ngIf="project.completed" class="col-md-2" style="background-color: lightcoral; color : whitesmoke">
         <h5> Suspended Project !!! </h5>
@@ -113,10 +117,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text" placeholder="Search..."
-        />
+        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text"
+          placeholder="Search..." />
         <div *ngFor="let manager of allUsers | filter:searchText">
-          <div id="selectMgr" (click)="selectManager(manager._id, manager.firstName, manager.lastName)" data-dismiss="modal">{{manager.firstName}} {{manager.lastName}}</div>
+          <div id="selectMgr" (click)="selectManager(manager._id, manager.firstName, manager.lastName)" data-dismiss="modal">{{manager.firstName}}
+            {{manager.lastName}}</div>
           <br>
         </div>
 

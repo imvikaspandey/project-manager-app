@@ -9,13 +9,17 @@ import { UserComponent } from './user/user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchPipePipe } from './pipes/search-pipe.pipe';
 import { ProjectComponent } from './project/project.component';
+import { AddTasksComponent } from './add-tasks/add-tasks.component';
+import { ViewTaskComponent } from './view-task/view-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     SearchPipePipe,
-    ProjectComponent
+    ProjectComponent,
+    AddTasksComponent,
+    ViewTaskComponent
   ],
   imports: [
     BrowserModule,

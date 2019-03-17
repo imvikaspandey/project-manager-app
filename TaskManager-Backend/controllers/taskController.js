@@ -7,6 +7,9 @@ var mongoose = require('mongoose'),
 
 exports.list_all_task = function (req, res) {
     Task.find({})
+        .populate('projectId')
+        .populate('user')
+        .populate('parentTaskId')
         .exec(function (err, tasks) {
             if (err)
                 res.send(err);

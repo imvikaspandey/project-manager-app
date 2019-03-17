@@ -59,7 +59,7 @@ export class ProjectComponent implements OnInit {
 
   dateFormatter(date: Date, format: string): any {
     if (!date) { return null; }
-    return new DatePipe("en-US").transform(date, format);
+    return new DatePipe('en-US').transform(date, format);
   }
 
   createForm() {

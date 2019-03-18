@@ -168,7 +168,7 @@ export class AddTasksComponent implements OnInit {
     let taskObj = null;
     console.log(this.addTaskForm);
     if (this.addTaskForm.value) {
-      if (this.addTaskForm.value.startDate < this.addTaskForm.value.endDate) {
+      if (this.isParentTask || this.addTaskForm.value.startDate < this.addTaskForm.value.endDate) {
         if (!this.isParentTask) {
 
           taskObj = {

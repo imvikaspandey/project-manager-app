@@ -168,8 +168,9 @@ export class AddTasksComponent implements OnInit {
     let taskObj = null;
     console.log(this.addTaskForm);
     if (this.addTaskForm.value) {
-      if (!this.isParentTask) {
-        if (this.addTaskForm.value.startDate < this.addTaskForm.value.endDate) {
+      if (this.addTaskForm.value.startDate < this.addTaskForm.value.endDate) {
+        if (!this.isParentTask) {
+
           taskObj = {
             projectId: this.selectedProjectID,
             taskName: this.addTaskForm.value.taskName,
@@ -182,46 +183,49 @@ export class AddTasksComponent implements OnInit {
             completed: false
 
           };
+
+        } else {
+
+          console.log('Parent task');
+
+          taskObj = {
+            projectId: this.selectedProjectID,
+            taskName: this.addTaskForm.value.taskName,
+            parentTask: this.isParentTask,
+            priority: 0,
+            parentTaskId: null,
+            startDate: this.dateFormatter(new Date(), 'yyyy-MM-dd'),
+            endDate: this.dateFormatter(new Date(new Date().setDate(new Date().getDate() + 1)), 'yyyy-MM-dd'),
+            user: null,
+            completed: false
+          };
+        }
+        if (this.editing === false) {
+          this.taskservice.createTask(taskObj).subscribe(res => {
+            alert('Task Created successfully');
+            console.log(res);
+            this.resetForm();
+
+          },
+            error => {
+              console.log(error);
+              this.resetForm();
+            });
+        } else {
+          this.taskservice.editTask(this.taskToEditID, taskObj).subscribe(res => {
+            alert('Task Updated successfully');
+            console.log(res);
+            this.resetForm();
+            this.taskToEditID = null;
+
+          },
+            error => {
+              console.log(error);
+              this.resetForm();
+            });
         }
       } else {
-
-        console.log('Parent task');
-
-        taskObj = {
-          projectId: this.selectedProjectID,
-          taskName: this.addTaskForm.value.taskName,
-          parentTask: this.isParentTask,
-          priority: 0,
-          parentTaskId: null,
-          startDate: this.dateFormatter(new Date(), 'yyyy-MM-dd'),
-          endDate: this.dateFormatter(new Date(new Date().setDate(new Date().getDate() + 1)), 'yyyy-MM-dd'),
-          user: null,
-          completed: false
-        };
-      }
-      if (this.editing === false) {
-        this.taskservice.createTask(taskObj).subscribe(res => {
-          alert('Task Created successfully');
-          console.log(res);
-          this.resetForm();
-
-        },
-          error => {
-            console.log(error);
-            this.resetForm();
-          });
-      } else {
-        this.taskservice.editTask(this.taskToEditID, taskObj).subscribe(res => {
-          alert('Task Updated successfully');
-          console.log(res);
-          this.resetForm();
-          this.taskToEditID = null;
-
-        },
-          error => {
-            console.log(error);
-            this.resetForm();
-          });
+        alert('Start Date should be less than End Date');
       }
     }
     this.selectedUserID = null;

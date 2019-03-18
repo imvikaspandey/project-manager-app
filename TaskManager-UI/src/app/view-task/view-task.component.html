@@ -3,14 +3,12 @@
 
     <div class="row">
       <div class="row col-md-6" style="margin-left: 15px;">
-        <label class="col-md-2 form-control" style="border: 0px;">Project :
+        <label class="col-md-2 form-control" style="border: 0px;">Project
         </label>
 
 
-        <input class="col-md-5 form-control" formControlName="projectName" type="text" readonly id="mgr" data-toggle="modal"
-          data-target="#projectModal">
-        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal"
-          data-target="#projectModal">
+        <input class="col-md-5 form-control" formControlName="projectName" type="text" readonly id="mgr" data-toggle="modal" data-target="#projectModal">
+        <button class="col-md-2" type="button" style="margin-top:0px;" class="btn btn-info" data-toggle="modal" data-target="#projectModal">
           Search </button>
       </div>
       <div class="row col-md-6">
@@ -20,7 +18,7 @@
         </button>
         <button type="button" class="col-md-2 btn btn-light" (click)="sortTaskByDate('endDate')"> EndDate </button>
         <button type="button" class=" col-md-2 btn btn-light" (click)="sortTaskByPriority('priority')"> Priority</button>
-        <button type="button" class="col-md-2 btn btn-light"> Completed</button>
+        <!-- <button type="button" class="col-md-2 btn btn-light"> Completed</button> -->
 
       </div>
 
@@ -97,11 +95,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text"
-          placeholder="Search..." />
+        <input id="search-text" style="width: 100% !important; margin:2px; padding: 4px;" [(ngModel)]="searchText" type="text" placeholder="Search..."
+        />
         <div *ngFor="let project of allProjects | filter:searchText">
           <div id="selectMgr" (click)="selectProject(project._id, project.projectName)" data-dismiss="modal">{{project.projectName}}
-            <br></div>
+            <br>
+          </div>
         </div>
 
       </div>

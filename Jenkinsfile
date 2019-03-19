@@ -17,7 +17,7 @@ pipeline {
         stage('Test Frontend Application') {
             steps {
                 echo 'Testing Frontend...'
-               
+                bat 'cd TaskManager-UI && npm i && npm test'
             }
         }
         stage('Test TaskManager-Backend') {

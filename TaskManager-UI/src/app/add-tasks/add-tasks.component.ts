@@ -4,7 +4,7 @@ import { ProjectService } from '../services/project.service';
 import { TaskService } from '../services/task.service';
 import { UserService } from '../services/user.service';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -34,7 +34,8 @@ export class AddTasksComponent implements OnInit {
     public projectservice: ProjectService,
     public userservice: UserService,
     public taskservice: TaskService,
-    private route: ActivatedRoute) { }
+    // private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.getProjects();

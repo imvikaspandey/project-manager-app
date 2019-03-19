@@ -186,7 +186,7 @@ export class AddTasksComponent implements OnInit {
 
         } else {
 
-          console.log('Parent task');
+          console.log('This is Parent task');
 
           taskObj = {
             projectId: this.selectedProjectID,

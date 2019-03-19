@@ -45,3 +45,15 @@ exports.update_a_project = function (req, res) {
             res.json(project);
     });
 };
+
+exports.delete_a_project = function (req, res) {
+    Project.deleteOne({
+        _id: req.params.projectId
+    }, function (err, project) {
+        if (err)
+            res.send(err);
+        else
+            res.json({ message: 'Project successfully deleted' });
+    });
+};
+

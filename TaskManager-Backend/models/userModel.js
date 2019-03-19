@@ -9,11 +9,11 @@ var UserSchema = new Schema({
 });
 
 // Virtual for User's URL
-UserSchema
-    .virtual('url')
-    .get(function () {
-        return '/user/' + this._id;
-    });
+// UserSchema
+//     .virtual('url')
+//     .get(function () {
+//         return '/user/' + this._id;
+//     });
 
 
 //Export model

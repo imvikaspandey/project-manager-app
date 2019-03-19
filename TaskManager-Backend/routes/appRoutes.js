@@ -16,11 +16,12 @@ module.exports = function (app) {
 
     app.route('/api/project')
         .get(projects.list_all_projects)
-        .post(projects.create_a_project);
+        .post(projects.create_a_project)
 
     app.route('/api/project/:projectId')
         .get(projects.read_a_project)
-        .put(projects.update_a_project);
+        .put(projects.update_a_project)
+        .delete(projects.delete_a_project);
 
     app.route('/api/task')
         .get(tasks.list_all_task)
@@ -28,7 +29,8 @@ module.exports = function (app) {
 
     app.route('/api/task/:taskId')
         .get(tasks.read_a_task)
-        .put(tasks.update_a_task);
+        .put(tasks.update_a_task)
+        .delete(tasks.delete_a_task);
 
     app.route('/api/parentTasks')
         .get(tasks.find_parent_tasks);

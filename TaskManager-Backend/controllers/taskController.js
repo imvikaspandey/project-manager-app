@@ -82,3 +82,14 @@ exports.find_parent_tasks = function (req, res) {
             res.json(task);
     });
 };
+
+exports.delete_a_task = function (req, res) {
+    Task.deleteOne({
+        _id: req.params.taskId
+    }, function (err, task) {
+        if (err)
+            res.send(err);
+        else
+            res.json({ message: 'Task successfully deleted' });
+    });
+};

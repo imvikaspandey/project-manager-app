@@ -21,6 +21,14 @@ Change to `Frontend` directory and run the below commands -
 2. `npm start`
 3. The application can be accessed at http://localhost:4200
 
+#### With Docker -
+
+(Make sure that docker is running)
+
+`docker-compose up --build`
+
+After starting the containers, the application will be available at http://localhost
+
 #### GIT Repo for capsule-
 
 - https://github.com/imvikaspandey/project-manager-app/tree/capsule

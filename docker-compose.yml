@@ -2,7 +2,7 @@ version: '3'
 
 services:
   angular:
-    build: ./Frontend
+    build: ./TaskManager-UI
     ports:
       - "80:80"
     depends_on:
@@ -12,7 +12,7 @@ services:
     ports:
       - "27017:27017"
   node:
-    build: ./Backend
+    build: ./TaskManager-Backend
     environment:
       - type=db
     ports:
